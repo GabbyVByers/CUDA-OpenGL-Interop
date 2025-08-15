@@ -1,10 +1,15 @@
 ﻿
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
-#include <iostream>
+
+#include "imgui.h"
+#include "imgui_impl_glfw.h"
+#include "imgui_impl_opengl3.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+#include <iostream>
 
 __global__ void kernel(int* device_a, const int* device_b, const int* device_c, const int size)
 {
@@ -121,6 +126,16 @@ int main()
     glEnableVertexAttribArray(0);
     glBindVertexArray(0);
 
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    float scale = 2.0f;
+    io.FontGlobalScale = scale;
+    ImGui::GetStyle().ScaleAllSizes(scale);
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplOpenGL3_Init("#version 330");
+
     while (!glfwWindowShouldClose(window))
     {
         if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -131,6 +146,17 @@ int main()
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+        ImGui::Begin("Title Text");
+        ImGui::Text("Line Text");
+        ImGui::Text("A Floating Point Number: %f", 0.3f + 0.2f);
+        ImGui::End();
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
