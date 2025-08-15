@@ -7,6 +7,9 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{bd0162c7-adf9-4f4a-aad0-58fae70e9e0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\OpenGL">
+      <UniqueIdentifier>{dd4149a7-6362-46fb-a80e-629bc18b8ece}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CudaCompile Include="main.cpp">
@@ -15,7 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenGL</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
