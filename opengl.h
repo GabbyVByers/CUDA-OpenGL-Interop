@@ -2,11 +2,9 @@
 
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
-
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <cuda_gl_interop.h>
@@ -55,7 +53,6 @@ public:
         grid = dim3((screenWidth / 32) + 1, (screenHeight / 32) + 1);
 
         glfwMakeContextCurrent(window);
-        glfwSwapInterval(0);
         gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
         glGenBuffers(1, &PBO);
         glBindBuffer(GL_PIXEL_UNPACK_BUFFER, PBO);
@@ -173,3 +170,4 @@ public:
         glfwPollEvents();
     }
 };
+

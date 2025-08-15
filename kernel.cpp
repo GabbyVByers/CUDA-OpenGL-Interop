@@ -5,15 +5,19 @@ __global__ void pixelKernel(uchar4* pixels, int width, int height)
 {
     int x = blockIdx.x * blockDim.x + threadIdx.x;
     int y = blockIdx.y * blockDim.y + threadIdx.y;
+    float u = ((x / (float)width) * 2.0f - 1.0f) * (width / (float)height);
+    float v = (y / (float)height) * 2.0f - 1.0f;
+
     int index = -1;
-
     if ((x < width) && (y < height))
-        int index = y * width + x;
-
-    if (index == -1)
+        index = y * width + x;
+    else
         return;
 
-    pixels[index] = make_uchar4(255, 0, 255, 255);
+    if ((u * u) + (v * v) < 1.0f)
+        pixels[index] = make_uchar4(255, 255, 255, 255);
+    else
+        pixels[index] = make_uchar4(0, 0, 0, 255);
 }
 
 void InteropOpenGL::executePixelKernel()

@@ -6,9 +6,7 @@ void InteropOpenGL::initImGui()
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
-    float scale = 2.0f;
-    io.FontGlobalScale = scale;
-    ImGui::GetStyle().ScaleAllSizes(scale);
+    io.FontGlobalScale = 2.0f;
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 330");
